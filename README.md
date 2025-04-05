@@ -1,9 +1,9 @@
 # React_Native_Getir_Mobile_App_Clone
 
 ## 🧩 1. Proje Başlatma ve Ortam Kurulumu
-expo init komutu ile proje başlatıldı.
+-> expo init komutu ile proje başlatıldı.
 
-npm install komutlarıyla temel bağımlılıklar kuruldu.
+-> npm install komutlarıyla temel bağımlılıklar kuruldu.
 
 Aşağıdaki kütüphaneler yüklendi:
 
