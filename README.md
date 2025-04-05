@@ -1,5 +1,6 @@
 # React_Native_Getir_Mobile_App_Clone
 
+### 📦Kurulum
 ```
 npx create-expo-app LetgoClone
 ```
