@@ -2,6 +2,12 @@
 
 ```
 npx create-expo-app LetgoClone
+```
+
+```
 cd LetgoClone
+```
+
+```
 npm start
 ```
