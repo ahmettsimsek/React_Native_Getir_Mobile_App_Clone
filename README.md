@@ -35,3 +35,8 @@ npm install @react-navigation/native
 expo install react-native-screens react-native-safe-area-context
 ```
 Bu iki paket @react-navigation/native ile birlikte çalışır, özellikle Android performansı ve güvenli alan için gereklidir.
+
+### 📦 Alt sekmeli navigasyon (bottom tab navigation) sistemi kurmak için 
+```
+npm install @react-navigation/bottom-tabs
+```
