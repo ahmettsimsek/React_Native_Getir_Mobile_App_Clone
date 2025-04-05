@@ -48,3 +48,21 @@ npm install @react-navigation/stack
 ```
 expo install @react-native-masked-view/masked-view
 ```
+
+### 📦 @expo/vector-icons paketi kurulumu
+```
+npm install @expo/vector-icons
+```
+### 📦 kritik bir bağımlılık: react-native-gesture-handler
+```
+expo install react-native-gesture-handler
+```
+
+### 📦 Uygulamanı tekrar başlatmak için Expo’da şu komutu kullanabilirsin:
+```
+npm start
+```
+veya
+```
+expo start
+```
