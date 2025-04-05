@@ -12,7 +12,7 @@ cd LetgoClone
 npm start
 ```
 
-GetirClone/
+### GetirClone/
 ├── assets/
 ├── node_modules/
 ├── .expo-shared/
