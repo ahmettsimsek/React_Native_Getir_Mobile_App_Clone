@@ -40,3 +40,11 @@ Bu iki paket @react-navigation/native ile birlikte çalışır, özellikle Andro
 ```
 npm install @react-navigation/bottom-tabs
 ```
+### 📦 Stack Navigator Kurulumu:
+```
+npm install @react-navigation/stack
+```
+### 📦 Masked View (gereklidir):
+```
+expo install @react-native-masked-view/masked-view
+```
