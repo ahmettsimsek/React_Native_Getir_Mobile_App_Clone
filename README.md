@@ -13,13 +13,13 @@ npm start
 ```
 
 ### GetirClone/
-├── assets/
-├── node_modules/
-├── .expo-shared/
-├── .gitignore
-├── app.json
-├── App.tsx
-├── babel.config.js
-├── package.json
-├── tsconfig.json
-└── yarn.lock
+- ├── assets/
+- ├── node_modules/
+- ├── .expo-shared/
+- ├── .gitignore
+- ├── app.json
+- ├── App.tsx
+- ├── babel.config.js
+- ├── package.json
+- ├── tsconfig.json
+- └── yarn.lock
