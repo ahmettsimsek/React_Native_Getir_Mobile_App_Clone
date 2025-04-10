@@ -6,7 +6,10 @@ import MainCategories from '../../components/MainCategories'
 
 function index() {
     return(
-       <ScrollView stickyHeaderIndices={[0]} style={{backgroundColor: '#F5F5F5'}}>
+       <ScrollView stickyHeaderIndices={[0]} 
+       style={{backgroundColor: '#F5F5F5'}}
+       contentContainerStyle={{ paddingBottom: 30 }} 
+       >
             <HeaderMain />
             <BannerCarousel />
             <MainCategories />
