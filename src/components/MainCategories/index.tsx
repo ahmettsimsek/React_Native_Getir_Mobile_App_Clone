@@ -5,7 +5,9 @@ import { Category } from '../../models'
 import CategoryItem from '../../components/CategoryItem' // eger CategoryItem sayfasında export ile veriyorsan {CategoryItem} şeklinde yazamassın {} içine koyamazsın unutma
 
 
+
 function index() {
+   
     const [categories, setCategories] = useState<Category[]>(categoriesGetir)
 
     return (
