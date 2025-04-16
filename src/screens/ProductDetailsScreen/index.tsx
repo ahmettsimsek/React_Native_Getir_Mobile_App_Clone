@@ -20,11 +20,12 @@ function index(props) {
   return (
     <View style={{ flex: 1,}}>
     <ScrollView>
-        <ImageCarousel images={product?.images}/>
+        <ImageCarousel images={product?.images}/>  /* Görseller */
 
+        /* Fiyat, ad ve miktar */
         <DetailBox price={product.fiyat} name={product.name} quantity={product.miktar} />
 
-        <Text style={{
+        <Text style={{    /* Detaylar başlığı */
           paddingHorizontal: 15, 
           paddingVertical: 14,
           color: "#808B99", 
@@ -32,9 +33,9 @@ function index(props) {
           fontSize: 15}}>
         Detaylar</Text>
 
-        <DetailProperty />
+        <DetailProperty />     /* Ürün detayları */
     </ScrollView>  
-    <CardButton/>
+    <CardButton/>  /* Sepete ekleme butonu */
     </View>
   )
 }
