@@ -19,7 +19,7 @@ function index() {
                 justifyContent:'space-between'
             }}>
                 <Text style={{
-                    color: index=== 0 ? "black" :'#687482', 
+                    color: index=== 0 ? "#4E4E4E" :'#687482', 
                     fontSize: index === 0 ? 10.5 : 13,
                     fontWeight: index=== 0 ? '400' : '700'}}>{detail}</Text>
                         {index != 0 && <Feather name="chevron-down" size={24} color="#9F9F9F" />}

@@ -1,15 +1,19 @@
 import React from 'react'
-import { Dimensions, Image, Text, View } from 'react-native'
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
 import {Product} from "../../models"
+import { connect } from 'react-redux'
+import * as actions from "../../redux/actions/cartActions"
 
 
 type CartItemProps = {
-    product:Product
+    product:Product;
+    quantity:number;
+    removeFromCart: (product:Product) => void;
 }
 
 const {width,height} = Dimensions.get('window')
 
-function index({product}:CartItemProps) {
+function index({product,quantity, removeFromCart}:CartItemProps) {
   return (
     <View style={{width:'100%',backgroundColor:'white'}}>
     <View style={{ //ürünü artırıp azaltığımız üst kısmın componenti
@@ -26,10 +30,21 @@ function index({product}:CartItemProps) {
         
         <View //resmin olduğu kısmı kapsar
           style={{flexDirection:'row',alignItems:'center'}}>
+            <View style={{
+               borderWidth:0.45,
+               borderColor:'lightgray',
+               borderRadius:8,
+               padding:4
+            }}>
             <Image
-            style={{height:height*0.09, width:height*0.09,}} 
+            style={{
+              height:height*0.09, 
+              width:height*0.09,
+             
+            }} 
             source={{uri:product.image}}
             />
+            </View>
 
             <View style={{marginLeft: 8}}>
                 <Text 
@@ -72,13 +87,14 @@ function index({product}:CartItemProps) {
             
         }}
         >
-            <View //azaltma
+            <TouchableOpacity //azaltma
+              onPress={()=> removeFromCart(product)}
               style={{
                 flex:1,
                 alignItems:'center'
               }}>
                 <Text>-</Text>
-            </View>
+            </TouchableOpacity>
 
             <View //adet değeri
               style={{
@@ -94,7 +110,9 @@ function index({product}:CartItemProps) {
                     fontWeight:'bold',
                     color:'white',
                     fontSize: 12
-                    }}>1</Text>
+                    }}>
+                      {quantity}
+                    </Text>
             </View>
 
             <View  //artırma
@@ -112,4 +130,16 @@ function index({product}:CartItemProps) {
   )
 }
 
-export default index
+// Redux ile dispatch işlemlerini component'e prop olarak bağlar
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // Sepetten ürün çıkarmak için kullanılacak fonksiyonu tanımlar
+    // Bu fonksiyon, ilgili ürünü alır ve removeFromCart action'ını çağırır
+    removeFromCart: (product: Product) =>
+      dispatch(actions.removeFromCart(product))
+  };
+};
+
+// Redux'ın connect fonksiyonu ile bu component'e sadece,
+// dispatch fonksiyonları bağlanır (state yok)
+export default connect(null, mapDispatchToProps)(index);

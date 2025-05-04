@@ -35,7 +35,7 @@ function index(props) {
 
         <DetailProperty />     /* Ürün detayları */
     </ScrollView>  
-    <CardButton/>  /* Sepete ekleme butonu */
+    <CardButton item={product}/>  /* Sepete ekleme butonu */
     </View>
   )
 }

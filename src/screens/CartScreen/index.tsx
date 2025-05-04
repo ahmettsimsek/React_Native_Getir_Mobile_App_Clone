@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, FlatList, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import productsGetir from '../../../assets/productsGetir'
 import CartItem from "../../components/CartItem"
 import ProductItem from "../../components/ProductItem"
+import { connect } from 'react-redux'
+import { Product } from '../../models'
 
 const {width,height} = Dimensions.get('window')
 
-function index() {
+function index({cartItems}:{cartItems: {product:Product, quantitiy: number}[]}) {
+
+  const [totalPrice, setTotalPrice] = useState<number> (0)
+  const getProductsPrice = () => {
+    let total=0;
+    cartItems.forEach(item => {
+      total += item.product.fiyat
+      setTotalPrice(total)
+    })
+    cartItems.length ?  null : setTotalPrice(0)
+  }
+  useEffect(() =>{
+    getProductsPrice()
+  }, [cartItems])
+
+
   return (
     <View style={{flex:1}}>
-    <ScrollView style={{flex:1}}>
+    <ScrollView style={{flex:1, marginBottom: height*0.12}}>
         <FlatList
-        data={productsGetir.slice(0,3)}
-        renderItem={({item}) => <CartItem product={item}/>} 
+        style={{}}
+        data={cartItems}
+        renderItem={({item}) => <CartItem product={item.product} quantity={item.quantity}/>} 
         />
 
         <Text style={{
@@ -88,13 +106,19 @@ function index() {
                   }}
                 >
                   <Text>{"\u20BA"}</Text>
-                  24,00
+                  {totalPrice.toFixed(2)}
                 </Text>
             </View>
-
         </View>
     </View>
   )
 }
 
-export default index
+
+const mapStateToProps = (state) => { //bu kısımm!!!!!!!!!!
+  const{cartItems} = state;
+  return{
+    cartItems:cartItems
+  }
+}
+export default connect(mapStateToProps, null)(index)

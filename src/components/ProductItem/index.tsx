@@ -3,13 +3,16 @@ import React from 'react'
 import { View, Text,Image, TouchableOpacity, Dimensions } from 'react-native'
 import { Product } from '../../models'
 import { useNavigation } from '@react-navigation/native'
+import { connect } from 'react-redux'
+import * as actions from "../../redux/actions/cartActions"
 
 const{width, height} = Dimensions.get('window')
 
 type productItemType={
-    item: Product
+    item: Product;
+    addItemToCart:(a:Product) => void;
 }
-function index({item}: productItemType) {
+function index({item, addItemToCart}: productItemType) {
     const navigation = useNavigation()
   return (
     <TouchableOpacity
@@ -67,28 +70,38 @@ function index({item}: productItemType) {
                 {item.miktar}
         </Text>
 
-        <View style = {{
-            alignItems: 'center',
-            shadowRadius: 3.8,
-            shadowOpacity: 0.05,
-            justifyContent: 'center',
-            width:30,
-            height:30,
-            borderWidth: 0.3,
-            borderColor: 'lightgrey',
-            backgroundColor: 'white',
-            position:'absolute',
-            right: -6,
-            top: -6,
-            borderRadius: 6,
+        <TouchableOpacity 
+            onPress={()=> {addItemToCart(item)}} 
+            style = {{
+                alignItems: 'center',
+                shadowRadius: 3.8,
+                shadowOpacity: 0.05,
+                justifyContent: 'center',
+                width:30,
+                height:30,
+                borderWidth: 0.3,
+                borderColor: 'lightgrey',
+                backgroundColor: 'white',
+                position:'absolute',
+                right: -6,
+                top: -6,
+                borderRadius: 6,
 
         }}>
 
             <Entypo name='plus' size={22} color={"#5D3EBD"} />
 
-        </View>
+        </TouchableOpacity>
     </TouchableOpacity>
   )
 }
 
-export default index
+
+const mapDispatchToProps = ( dispatch) => { 
+    return{
+        addItemToCart:(product:Product) =>
+            dispatch(actions.addToCart({quantity:1,product}))
+    }
+}
+
+export default connect (null, mapDispatchToProps)(index)

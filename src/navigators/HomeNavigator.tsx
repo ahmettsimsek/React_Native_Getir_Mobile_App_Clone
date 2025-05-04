@@ -1,5 +1,5 @@
 import {  Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { act, useEffect, useState } from 'react'
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from '../screens/HomeScreen'
 import CategoryFilterScreen from '../screens/CategoryFilterScreen'
@@ -7,24 +7,41 @@ import  ProductDetailsScreen from "../screens/ProductDetailsScreen"
 import { Foundation, Ionicons } from '@expo/vector-icons';
 import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import CartScreen from "../screens/CartScreen"
+import { connect } from 'react-redux';
+import { Product } from '../models';
+import * as actions from "../redux/actions/cartActions"
 
 const Stack = createStackNavigator()
 
 const{width, height} = Dimensions.get('window')
 
-function MyStack({navigation,route}) {
+function MyStack({navigation,route,cartItems, clearCart}:{cartItems:{product:Product, quantity:number}[],clearCart:() => void}) {
 
-  const tabHiddenRoutes = ["ProductDetails","CartScreen"];//alt menü paneli gizler
+  const tabHiddenRoutes = ["ProductDetails",""];//alt menü paneli gizler
+  const [totalPrice, setTotalPrice] = useState<number>(0)
 
   React.useLayoutEffect(() => {
-    const routeName = getFocusedRouteNameFromRoute(route)
+    const routeName = getFocusedRouteNameFromRoute(route) ?? '';
     if(tabHiddenRoutes.includes(routeName)) {
       navigation.setOptions({tabBarStyle: {display: "none" }})
     } else {
-      console.log(" Aç ", routeName);
       navigation.setOptions({ tabBarStyle : { display: "true" }});
     }
   },[navigation,route])
+
+ //////////////////ikinci kısım
+ const getProductsPrice = () => {
+  if (!Array.isArray(cartItems)) return; // güvenli kontrol
+
+  let total = 0;
+  cartItems.forEach(cartItem => {
+    total += cartItem.product.fiyat;
+  });
+  setTotalPrice(total); // sadece bir kez çağır
+  };
+  useEffect(() =>{
+    getProductsPrice()
+  },[cartItems, navigation, route])
 
 
   return (
@@ -102,7 +119,8 @@ function MyStack({navigation,route}) {
                     fontSize: 12
                   }}
                 >
-                  <Text> {"\u20BA"}</Text> 24.00
+                  <Text> {"\u20BA"}</Text>
+                  {totalPrice.toFixed(2)}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -175,7 +193,8 @@ function MyStack({navigation,route}) {
         ),
         headerRight: () => (
           <TouchableOpacity
-          style={{paddingRight:10}}
+            onPress={() => clearCart()}
+            style={{paddingRight:10}}
         >
             <Ionicons name='trash' size={24} color='white' />
         </TouchableOpacity>
@@ -187,6 +206,27 @@ function MyStack({navigation,route}) {
   )
 }
 
-export default function HomeNavigator({navigation, route}){
-  return <MyStack navigation = {navigation} route={route} />
+// Redux store'dan gerekli state verilerini props olarak almak için kullanılır
+const mapStateToProps = (state) => {
+  const { cartItems } = state; // State içindeki cartItems'ı ayıklar
+  return {
+    cartItems: cartItems // Bu veriyi component'e props olarak aktarır
+  };
+};
+
+// Redux dispatch fonksiyonlarını props olarak component'e bağlar
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // Tüm sepeti temizlemek için kullanılacak fonksiyon
+    clearCart: () => dispatch(actions.clearCart())
+  };
 }
+
+// HomeNavigator bileşeni, navigasyon, route, cartItems ve clearCart fonksiyonunu prop olarak alır
+function HomeNavigator({ navigation, route, cartItems, clearCart }: { clearCart: () => void }) {
+  // Tüm bu prop'ları MyStack component'ine iletir
+  return <MyStack navigation={navigation} route={route} cartItems={cartItems} clearCart={clearCart} />
+}
+
+// Redux bağlantısı yapılır: state'ten cartItems alınır, clearCart action'ı bağlanır
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNavigator)
