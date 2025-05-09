@@ -78,3 +78,7 @@ expo start
 ```
 expo install expo-linking
 ```
+Projeyi başlatmak için artık sadece şu komutu kullan:
+```
+npx expo start
+```
