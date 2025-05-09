@@ -73,3 +73,8 @@ veya
 ```
 expo start
 ```
+
+### 📦 kritik bir bağımlılık: Expo Linking
+```
+expo install expo-linking
+```
