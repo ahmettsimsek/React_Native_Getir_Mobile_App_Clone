@@ -206,7 +206,8 @@ function MyStack({navigation,route,cartItems, clearCart}:{cartItems:{product:Pro
   )
 }
 
-// Redux store'dan gerekli state verilerini props olarak almak için kullanılır
+// Redux store'dan gerekli state verilerini props(bir bileşenden başka bir bileşene veri 
+// veya fonksiyon gönderme yöntemidir.) olarak almak için kullanılır
 const mapStateToProps = (state) => {
   const { cartItems } = state; // State içindeki cartItems'ı ayıklar
   return {
@@ -219,7 +220,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // Tüm sepeti temizlemek için kullanılacak fonksiyon
     clearCart: () => dispatch(actions.clearCart())
-  };
+  }; //clearCart fonksiyonu, Redux aksiyonu olan clearCart()'ı dispatch ederek store'u günceller; 
+    // böylece sepet   boşaltılır ve bu değişiklik tüm uygulamaya yansır.
 }
 
 // HomeNavigator bileşeni, navigasyon, route, cartItems ve clearCart fonksiyonunu prop olarak alır
