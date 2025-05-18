@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "GetirClone",
+    "scheme": "getir",
     "slug": "GetirClone",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,10 +20,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ahmtsmsek.GetirClone"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "32496a90-bab2-4066-a48c-6fdad1d7a9dc"
+      }
     }
   }
 }
